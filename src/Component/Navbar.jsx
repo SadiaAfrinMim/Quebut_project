@@ -1,19 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FiSearch, FiSettings, FiX, FiArrowUpRight, FiActivity, FiServer, FiUsers, FiTool } from 'react-icons/fi';
 import { RiAdminLine, RiDragMove2Line } from 'react-icons/ri';
+import { DownOutlined, UserOutlined, CheckOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Menu,  Space, Tooltip } from 'antd';
 
-
-const Navbar = () => {
-  const  branchData  = useOutletContext();
+const Navbar = ({ branchData }) => {
+  const navigate = useNavigate();
+  const { branch: urlBranch } = useParams();
+  
+  // নিরাপদভাবে ব্রাঞ্চ সিলেক্ট করুন
+  const selectedBranch = urlBranch || 
+    (branchData && Object.keys(branchData).length > 0 ? Object.keys(branchData)[0] : '');
  
-  const [selectedBranch, setSelectedBranch] = useState('Branch 1');
-  
-  const data = branchData[selectedBranch];
-  console.log(data)
-  console.log("nav",branchData)
-
-  
   const [isOpen, setIsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -44,15 +43,15 @@ const Navbar = () => {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo with animated drawer toggle */}
           <div className="flex items-center space-x-2 cursor-pointer" onClick={toggleDrawer}>
-            <RiDragMove2Line 
+            <RiDragMove2Line
               className={`text-xl transition-transform duration-300 ${
                 isOpen ? 'rotate-90 text-purple-200' : 'hover:rotate-45'
               }`}
             />
             <span className="text-2xl font-bold flex items-center">
-              <img 
-                src="/logo-icon.png" 
-                alt="Logo" 
+              <img
+                src="/logo-icon.png"
+                alt="Logo"
                 className={`h-8 w-8 mr-2 transition-transform duration-300 ${
                   isOpen ? 'rotate-180' : ''
                 }`}
@@ -86,8 +85,8 @@ const Navbar = () => {
               />
               {settingsOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl text-gray-800 overflow-hidden">
-                  <Link 
-                    to="/settings/general" 
+                  <Link
+                    to="/settings/general"
                     className="flex items-center p-3 hover:bg-purple-50 transition-colors"
                   >
                     <FiTool className="mr-2" />
@@ -124,15 +123,15 @@ const Navbar = () => {
         <div className="p-6 border-b border-white/10">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold flex items-center">
-              <img 
-                src="/logo-icon.png" 
-                alt="Logo" 
+              <img
+                src="/logo-icon.png"
+                alt="Logo"
                 className="h-8 w-8 mr-2 animate-pulse"
               />
               Navigation
             </h2>
-            <button 
-              onClick={toggleDrawer} 
+            <button
+              onClick={toggleDrawer}
               className="p-2 hover:bg-white/10 rounded-full transition-colors"
             >
               <FiX className="text-xl" />
@@ -145,40 +144,60 @@ const Navbar = () => {
             <h3 className="text-sm uppercase text-white/70 tracking-wider font-medium flex items-center">
               <FiActivity className="mr-2" />
               Analytics
-
             </h3>
- <div className="flex gap-4 mb-6">
- <h2 className="text-2xl font-bold mb-6">Total Overview Dashboard - {selectedBranch}</h2>
-
- {Object.keys(branchData).map((branch) => (
-          <button
-            key={branch}
-            onClick={() => setSelectedBranch(branch)}
-            className={`px-4 py-2 rounded-md transition ${
-              selectedBranch === branch
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 hover:bg-blue-100'
+            
+            <div className="ml-2 space-y-4">
+              <div className="flex gap-4 mb-6">
+              <Dropdown
+      overlay={
+        <Menu className="shadow-lg rounded-lg overflow-hidden">
+          {Object.keys(branchData || {}).map((branch) => (
+            <Menu.Item
+              key={branch}
+              onClick={() => navigate(`/${branch}`)} // লিঙ্কে নেভিগেট করুন
+              className={`px-6 py-3 transition-all flex items-center ${
+                selectedBranch === branch
+                  ? 'bg-blue-50 text-blue-600 font-semibold'
+                  : 'hover:bg-gray-50 text-gray-700'
+              }`}
+            >
+              {branch}
+              {selectedBranch === branch && (
+                <CheckOutlined className="ml-2 text-blue-500" />
+              )}
+            </Menu.Item>
+          ))}
+        </Menu>
+      }
+    >
+      <Button
+        className={`flex items-center border-2 transition-all ${
+          selectedBranch
+            ? 'border-blue-500 bg-blue-50 text-blue-600'
+            : 'border-gray-200 hover:border-blue-300'
+        }`}
+        style={{ minWidth: '200px' }}
+      >
+        <Space className="flex items-center justify-between w-full">
+          {selectedBranch || 'Select Branch'}
+          <DownOutlined
+            className={`transition-transform ${
+              selectedBranch ? 'text-blue-500' : 'text-gray-400'
             }`}
-          >
-            {branch}
-          </button>
-        ))}
-       
-      </div>
-            <Link 
-              to="/graph1" 
-              className="flex items-center p-3 hover:bg-white/10 rounded-lg transition-all duration-200 hover:translate-x-2"
-            >
-              <FiServer className="mr-3" />
-              Graph Configuration 1
-            </Link>
-            <Link
-              to="/graph2"
-              className="flex items-center p-3 hover:bg-white/10 rounded-lg transition-all duration-200 hover:translate-x-2"
-            >
-              <FiServer className="mr-3" />
-              Graph Configuration 2
-            </Link>
+          />
+        </Space>
+      </Button>
+    </Dropdown>
+              </div>
+
+              <Link
+                to="/graph2"
+                className="flex items-center p-3 hover:bg-white/10 rounded-lg transition-all duration-200 hover:translate-x-2"
+              >
+                <FiServer className="mr-3" />
+                Graph Configuration 2
+              </Link>
+            </div>
           </div>
 
           <div className="space-y-3">

@@ -81,7 +81,7 @@ function App() {
   return (
   <div className='space-y-8'>
   <div className='border-4 py-8 border-red-800 w-full mx-auto'>
-    <Navbar  context={branchData}></Navbar>
+    <Navbar  branchData={branchData}></Navbar>
   </div>
 
 <main className='max-w-10/12 border-4  border-red-800 mx-auto py-36'>

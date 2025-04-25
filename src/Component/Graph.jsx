@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { FiUsers, FiCheckCircle, FiXCircle, FiClock } from 'react-icons/fi';
 import Table from './Table';
-import { useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 
 // Sample Data for Branches
 // const branchData = {
@@ -75,15 +75,19 @@ import { useOutletContext } from 'react-router-dom';
 
 // Component for Graphs
 const Graph = () => {
-    const  branchData  = useOutletContext();
+  
+   
+ const  branchData  = useOutletContext();
+   
   const [selectedBranch, setSelectedBranch] = useState('Branch 1');
   const [selectedRange, setSelectedRange] = useState('Daily');
+
 
   const data = branchData[selectedBranch];
   console.log(branchData)
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <Link  className="p-6 bg-gray-50 min-h-screen">
       <h2 className="text-2xl font-bold mb-6">Total Overview Dashboard - {selectedBranch}</h2>
 
       {/* Branch Selection */}
@@ -213,7 +217,7 @@ const Graph = () => {
           topServiceData={data.topServiceData}
         />
       </div>
-    </div>
+    </Link>
   );
 };
 
