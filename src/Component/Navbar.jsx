@@ -120,24 +120,7 @@ const Navbar = ({ branchData }) => {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="p-6 border-b border-white/10">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold flex items-center">
-              <img
-                src="/logo-icon.png"
-                alt="Logo"
-                className="h-8 w-8 mr-2 animate-pulse"
-              />
-              Navigation
-            </h2>
-            <button
-              onClick={toggleDrawer}
-              className="p-2 hover:bg-white/10 rounded-full transition-colors"
-            >
-              <FiX className="text-xl" />
-            </button>
-          </div>
-        </div>
+      
 
         <div className="p-6 space-y-6">
           <div className="space-y-3">
@@ -219,6 +202,14 @@ const Navbar = ({ branchData }) => {
               <FiUsers className="mr-3" />
               User Management
             </Link>
+            <Link
+              to="/add-branch"
+              className="flex items-center p-3 hover:bg-white/10 rounded-lg transition-all duration-200 hover:translate-x-2"
+            >
+              <FiUsers className="mr-3" />
+             Add Branch
+            </Link>
+
           </div>
         </div>
       </div>

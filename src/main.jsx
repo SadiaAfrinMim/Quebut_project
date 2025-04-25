@@ -12,6 +12,7 @@ import SingleGraph from './Component/SingleGraph.jsx';
 import SingleTable from './Component/SingleTable.jsx';
 import SystemSettings from './Component/SystemSettings.jsx';
 import UserManagement from './Component/UserManagement.jsx';
+import AddBranch from './Component/AddBranch.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter >
@@ -20,9 +21,12 @@ createRoot(document.getElementById('root')).render(
   
   <Route>
   <Route path="/" element={<Graph></Graph>}>  </Route>
+  <Route path="/:branch" element={<Graph></Graph>}>  </Route>
+  
   <Route path='/' element={<Table></Table>}></Route>
   <Route path='/admin' element={<SystemSettings></SystemSettings>}></Route>
   <Route path='/users' element={<UserManagement></UserManagement>}></Route>
+  <Route path='/add-branch' element={<AddBranch></AddBranch>}></Route>
   
 
   
