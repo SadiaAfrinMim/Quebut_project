@@ -10,6 +10,8 @@ import Graph from './Component/Graph.jsx';
 import Table from './Component/Table.jsx';
 import SingleGraph from './Component/SingleGraph.jsx';
 import SingleTable from './Component/SingleTable.jsx';
+import SystemSettings from './Component/SystemSettings.jsx';
+import UserManagement from './Component/UserManagement.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter >
@@ -17,8 +19,11 @@ createRoot(document.getElementById('root')).render(
   <Route element={<App></App> }>
   
   <Route>
-  <Route path='/' element={<Graph></Graph>}>  </Route>
+  <Route path="/" element={<Graph></Graph>}>  </Route>
   <Route path='/' element={<Table></Table>}></Route>
+  <Route path='/admin' element={<SystemSettings></SystemSettings>}></Route>
+  <Route path='/users' element={<UserManagement></UserManagement>}></Route>
+  
 
   
   <Route>
