@@ -80,16 +80,21 @@ function App() {
 
   return (
   <div className='space-y-8'>
-  <div className='border-4 py-8 border-red-800 w-full mx-auto'>
+  <div className='border-4 py-8 w-full mx-auto'>
     <Navbar  branchData={branchData}></Navbar>
   </div>
 
-<main className='max-w-10/12 border-4  border-red-800 mx-auto py-36'>
+<main className='max-w-10/12 border-4 mx-auto py-36'>
 <Outlet  context={branchData} ></Outlet>
 </main>
-<footer className='py-8 w-full border-4 border-red-800  mx-auto'>
-  footer
-</footer>
+<footer className="bg-gray-50 border-t py-4 mt-auto">
+    <div className="w-full mx-auto px-4 text-sm text-gray-500 text-center sm:text-left">
+      © {new Date().getFullYear()} Your Company. All rights reserved. | 
+      <a href="#" className="hover:text-gray-700 ml-2">Terms</a> · 
+      <a href="#" className="hover:text-gray-700 ml-2">Privacy</a> · 
+      <a href="#" className="hover:text-gray-700 ml-2">Contact</a>
+    </div>
+  </footer>
   </div>
   )
 }

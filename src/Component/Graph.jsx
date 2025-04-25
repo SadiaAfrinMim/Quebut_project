@@ -1,122 +1,118 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { FiUsers, FiCheckCircle, FiXCircle, FiClock } from 'react-icons/fi';
 import Table from './Table';
-import { useOutletContext } from 'react-router-dom';
+import { Navigate, useOutletContext } from 'react-router-dom';
+import { DownOutlined, UserOutlined, CheckOutlined, CalendarOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Menu, Space } from 'antd';
 
-// Sample Data for Branches
-// const branchData = {
-//   'Branch 1': {
-//     tokenData: [
-//       { name: 'In Queue', value: 25, icon: <FiUsers />, color: 'bg-blue-500' },
-//       { name: 'Issued', value: 245, icon: <FiClock />, color: 'bg-purple-500' },
-//       { name: 'Served', value: 198, icon: <FiCheckCircle />, color: 'bg-green-500' },
-//       { name: 'Rejected', value: 12, icon: <FiXCircle />, color: 'bg-red-500' },
-//     ],
-//     serviceData: [
-//       { name: 'Bill Payment', value: 45 },
-//       { name: 'Cash Deposit', value: 32 },
-//       { name: 'Account Opening', value: 18 },
-//       { name: 'Loan Inquiry', value: 5 },
-//     ],
-//     topServiceData: {
-//       Daily: [
-//         { name: 'Cash Deposit', value: 10 },
-//         { name: 'Bill Payment', value: 8 },
-//         { name: 'Loan Inquiry', value: 4 },
-//       ],
-//       Weekly: [
-//         { name: 'Bill Payment', value: 32 },
-//         { name: 'Cash Deposit', value: 28 },
-//         { name: 'Account Opening', value: 14 },
-//       ],
-//       Monthly: [
-//         { name: 'Bill Payment', value: 100 },
-//         { name: 'Cash Deposit', value: 86 },
-//         { name: 'Account Opening', value: 55 },
-//       ],
-//     },
-//   },
-//   // You can define similar data for Branch 2, Branch 3, and Branch 4
-//   'Branch 2': {
-//     tokenData: [
-//         { name: 'In Queue', value: 15, icon: <FiUsers />, color: 'bg-blue-500' },
-//         { name: 'Issued', value: 245, icon: <FiClock />, color: 'bg-purple-500' },
-//         { name: 'Served', value: 198, icon: <FiCheckCircle />, color: 'bg-green-500' },
-//         { name: 'Rejected', value: 12, icon: <FiXCircle />, color: 'bg-red-500' },
-//       ],
-//       serviceData: [
-//         { name: 'Bill Payment', value: 45 },
-//         { name: 'Cash Deposit', value: 32 },
-//         { name: 'Account Opening', value: 18 },
-//         { name: 'Loan Inquiry', value: 5 },
-//       ],
-//       topServiceData: {
-//         Daily: [
-//           { name: 'Cash Deposit', value: 10 },
-//           { name: 'Bill Payment', value: 8 },
-//           { name: 'Loan Inquiry', value: 4 },
-//         ],
-//         Weekly: [
-//           { name: 'Bill Payment', value: 32 },
-//           { name: 'Cash Deposit', value: 28 },
-//           { name: 'Account Opening', value: 14 },
-//         ],
-//         Monthly: [
-//           { name: 'Bill Payment', value: 100 },
-//           { name: 'Cash Deposit', value: 86 },
-//           { name: 'Account Opening', value: 55 },
-//         ],
-//       },
-//    },
-//   'Branch 3': { /* similar structure with different values */ },
-//   'Branch 4': { /* similar structure with different values */ },
-// };
-
-// Component for Graphs
 const Graph = () => {
-    const  branchData  = useOutletContext();
-  const [selectedBranch, setSelectedBranch] = useState('Branch 1');
-  const [selectedRange, setSelectedRange] = useState('Daily');
+    const branchData = useOutletContext();
+    const [selectedBranch, setSelectedBranch] = useState('Branch 1');
+    const [selectedRange, setSelectedRange] = useState('Daily');
 
-  const data = branchData[selectedBranch];
-  console.log(branchData)
+    const data = branchData[selectedBranch];
 
-  return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h2 className="text-2xl font-bold mb-6">Total Overview Dashboard - {selectedBranch}</h2>
+   
 
-      {/* Branch Selection */}
-      <div className="flex gap-4 mb-6">
-        {Object.keys(branchData).map((branch) => (
-          <button
-            key={branch}
-            onClick={() => setSelectedBranch(branch)}
-            className={`px-4 py-2 rounded-md transition ${
-              selectedBranch === branch
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 hover:bg-blue-100'
-            }`}
-          >
-            {branch}
-          </button>
-        ))}
-      </div>
+    return (
+        <div className="p-8 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+            {/* Header Section */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 md:mb-0">
+                    Total Overview Dashboard - {selectedBranch}
+                </h2>
 
-      {/* Live Token Stats */}
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 mb-10">
-        {data.tokenData.map((item, index) => (
-          <div key={index} className={`${item.color} text-white p-6 rounded-2xl shadow-lg`}>
-            <div className="flex items-center justify-between">
-              <div className="text-3xl">{item.icon}</div>
-              <div className="text-right">
-                <p className="text-sm opacity-80">{item.name}</p>
-                <p className="text-3xl font-bold">{item.value}</p>
-              </div>
+                {/* Branch Selection */}
+                <div className="flex items-center gap-4">
+                    <Dropdown
+                        overlay={
+                            <Menu className="shadow-xl rounded-xl overflow-hidden border border-gray-200">
+                                {Object.keys(branchData || {}).map((branch) => (
+                                    <Menu.Item
+                                        key={branch}
+                                        className={`px-6 py-3 transition-all flex items-center ${
+                                            selectedBranch === branch
+                                                ? 'bg-blue-50 text-blue-600 font-semibold'
+                                                : 'hover:bg-gray-50 text-gray-700'
+                                        }`}
+                                    >
+                                        {branch}
+                                        {selectedBranch === branch && (
+                                            <CheckOutlined className="ml-2 text-blue-500 animate-fade-in" />
+                                        )}
+                                    </Menu.Item>
+                                ))}
+                            </Menu>
+                        }
+                    >
+                        <Button
+                            className="flex items-center border-2 border-blue-200 bg-white hover:border-blue-300 rounded-xl h-12 px-4 shadow-sm hover:shadow-md transition-all"
+                            style={{ minWidth: '220px' }}
+                        >
+                            <Space className="flex items-center justify-between w-full">
+                                <span className="text-blue-600 font-medium">{selectedBranch}</span>
+                                <DownOutlined className="text-blue-400" />
+                            </Space>
+                        </Button>
+                    </Dropdown>
+
+                    <Dropdown
+                        overlay={
+                            <Menu className="shadow-xl rounded-xl overflow-hidden border border-gray-200">
+                                {['Daily', 'Weekly', 'Monthly'].map((item) => (
+                                    <Menu.Item
+                                        key={item}
+                                        className={`px-6 py-3 transition-all ${
+                                            selectedRange === item
+                                                ? 'bg-blue-50 text-blue-600 font-semibold'
+                                                : 'hover:bg-gray-50 text-gray-700'
+                                        }`}
+                                    >
+                                        {item}
+                                    </Menu.Item>
+                                ))}
+                            </Menu>
+                        }
+                    >
+                        <Button
+                            icon={<CalendarOutlined className="text-blue-400" />}
+                            className="flex items-center border-2 border-blue-200 bg-white hover:border-blue-300 rounded-xl h-12 px-4 shadow-sm hover:shadow-md transition-all"
+                        >
+                            <span className="text-blue-600 font-medium ml-2">{selectedRange}</span>
+                        </Button>
+                    </Dropdown>
+                </div>
             </div>
-          </div>
-        ))}
-      </div>
+
+            {/* Live Token Stats */}
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 mb-10">
+                {data.tokenData.map((item, index) => (
+                    <div 
+                        key={index}
+                        className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow border-l-4 border-blue-500 group"
+                    >
+                        <div className="flex items-center justify-between">
+                            <div className={`text-3xl p-3 rounded-full bg-opacity-20 ${item.color}`}>
+                                {item.icon}
+                            </div>
+                            <div className="text-right">
+                                <p className="text-sm text-gray-500 mb-1">{item.name}</p>
+                                <p className="text-2xl font-bold text-gray-800">{item.value}</p>
+                                <div className="h-1 bg-gradient-to-r from-blue-200 to-blue-100 mt-2 rounded-full">
+                                    <div 
+                                        className="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full transition-all duration-500"
+                                        style={{ width: `${(item.value / 100) * 100}%` }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Charts Section */}
+          
+           
 
       {/* Token Status Overview Graph */}
       <div className="bg-white p-6 rounded-xl shadow mb-10">
@@ -181,7 +177,7 @@ const Graph = () => {
       <div className="bg-white p-6 rounded-xl shadow">
         <h3 className="text-lg font-semibold mb-4">Top Services</h3>
         <div className="flex gap-4 mb-6">
-          {['Daily', 'Weekly', 'Monthly'].map((label) => (
+          {/* {['Daily', 'Weekly', 'Monthly'].map((label) => (
             <button
               key={label}
               onClick={() => setSelectedRange(label)}
@@ -193,7 +189,7 @@ const Graph = () => {
             >
               {label}
             </button>
-          ))}
+          ))} */}
         </div>
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={data.topServiceData[selectedRange]}>
@@ -214,7 +210,9 @@ const Graph = () => {
         />
       </div>
     </div>
-  );
+
+       
+    );
 };
 
 export default Graph;

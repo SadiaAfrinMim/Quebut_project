@@ -4,7 +4,7 @@ const Table = ({ tokenData, serviceData, topServiceData }) => {
   return (
     <div className="space-y-6">
       {/* Branch Summary Button */}
-      <button className="bg-red-800 text-white text-lg px-5 py-2 rounded-md">
+      <button className=" text-white text-lg px-5 py-2 rounded-md">
         Branch Summary
       </button>
 
