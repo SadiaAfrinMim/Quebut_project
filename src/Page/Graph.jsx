@@ -24,7 +24,7 @@ const Graph = () => {
         </h2>
 
         {/* Controls Container */}
-        <div className="md:flex flex-col space-y-4 justify-between gap-4 items-center">
+        <div className="md:flex space-y-4 justify-center md:justify-between gap-4 items-center">
           {/* Branch Dropdown */}
           <Dropdown
             overlay={

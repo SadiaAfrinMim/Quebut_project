@@ -84,7 +84,7 @@ function App() {
     <Navbar  branchData={branchData}></Navbar>
   </div>
 
-<main className='max-w-10/12  mx-auto '>
+<main className='max-w-10/12 min-h-screen  mx-auto '>
 <Outlet  context={branchData} ></Outlet>
 </main>
 <footer className="bg-gray-50 border-t py-4 mt-auto">
