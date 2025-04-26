@@ -1,17 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiSearch, FiSettings, FiX, FiArrowUpRight, FiActivity, FiServer, FiUsers, FiTool } from 'react-icons/fi';
 import { RiAdminLine, RiDragMove2Line } from 'react-icons/ri';
 import { DownOutlined, UserOutlined, CheckOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu,  Space, Tooltip } from 'antd';
 
-const Navbar = ({ branchData }) => {
-  const navigate = useNavigate();
-  const { branch: urlBranch } = useParams();
+const Navbar = () => {
+  
+  
   
   // নিরাপদভাবে ব্রাঞ্চ সিলেক্ট করুন
-  const selectedBranch = urlBranch || 
-    (branchData && Object.keys(branchData).length > 0 ? Object.keys(branchData)[0] : '');
+  
  
   const [isOpen, setIsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
