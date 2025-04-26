@@ -1,18 +1,17 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+
 import "tailwindcss";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import App from './Mainlayout/App';
+import Graph from './Page/Graph';
+import Table from './Component/Table';
+import SystemSettings from './Page/SystemSettings';
+import UserManagement from './Page/UserManagement';
+import AddBranch from './Page/AddBranch';
 
-import Navbar from './Component/Navbar.jsx';
-import Graph from './Component/Graph.jsx';
-import Table from './Component/Table.jsx';
-import SingleGraph from './Component/SingleGraph.jsx';
-import SingleTable from './Component/SingleTable.jsx';
-import SystemSettings from './Component/SystemSettings.jsx';
-import UserManagement from './Component/UserManagement.jsx';
-import AddBranch from './Component/AddBranch.jsx';
+
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter >
@@ -30,10 +29,7 @@ createRoot(document.getElementById('root')).render(
   
 
   
-  <Route>
-  <Route path='/graph1' element={<SingleGraph></SingleGraph>}>
-  <Route path='/graph1'  element={<SingleTable></SingleTable>}></Route>
-  </Route>
+  
 
 
 
@@ -43,7 +39,7 @@ createRoot(document.getElementById('root')).render(
   </Route>
  
  
-  </Route>
+
   
   </Routes>
 </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import Table from './Table';
+import Table from '../Component/Table';
 import { Link, useOutletContext } from 'react-router-dom';
 import { DownOutlined, CheckOutlined, CalendarOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Menu, Space, DatePicker } from 'antd';
@@ -16,7 +16,7 @@ const Graph = () => {
   const chartColors = ['#3B82F6', '#8B5CF6', '#10B981', '#EF4444', '#F59E0B'];
 
   return (
-    <div className=" bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+    <div className=" bg-gradient-to-br p-4 shadow-2xl rounded-md from-gray-50 to-blue-50 min-h-screen">
       {/* Header Section */}
       <div className="  md:flex-row justify-between items-start md:items-center mb-8">
         <h2 className="text-3xl py-4 font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 md:mb-0">
@@ -24,7 +24,7 @@ const Graph = () => {
         </h2>
 
         {/* Controls Container */}
-        <div className="flex justify-between gap-4 items-center">
+        <div className="md:flex flex-col space-y-4 justify-between gap-4 items-center">
           {/* Branch Dropdown */}
           <Dropdown
             overlay={

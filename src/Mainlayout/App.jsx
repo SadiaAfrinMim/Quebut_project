@@ -1,7 +1,7 @@
 
 import { Outlet } from 'react-router-dom'
-import './App.css'
-import Navbar from './Component/Navbar'
+import '../App.css'
+import Navbar from '../Component/Navbar'
 import { FiCheckCircle, FiClock, FiUsers, FiXCircle } from 'react-icons/fi';
 
 const branchData = {
